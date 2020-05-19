@@ -35,6 +35,23 @@ Just starting
 */
 
 
+
+
+axios.get('https://api.github.com/users/troyasaurus')
+    .then(response => {
+        console.log(response);
+        const myInfo = response.data;
+        newCardMaker(response.data);
+        const mainCard = document.querySelector('.cards');
+        const cardInfo = newCardMaker(myInfo);
+        console.log(myInfo);
+        mainCard.appendChild(cardInfo)
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+
 const followersArray = ['dylanmestyanek', 'chelsabeth', 'itava0', 'jhaddon', 'adkhiker'];
 i = 0;
 followersArray.forEach((user, i) => {
@@ -50,151 +67,51 @@ followersArray.forEach((user, i) => {
         .catch(error => {
             console.log(error)
         });
-    // console.log(followersArray);
+    console.log(followersArray);
 });
 
-/*
-  STEP 3: Create a function that accepts a single object as its only argument.
-    Using DOM methods and properties, create and return the following markup:
-
-    <div class="card">
-      <img src={"https://avatars0.githubusercontent.com/u/11880596?v=4"} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
-      </div>
-    </div>
-*/
-
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
-// const cardList = (data) => {
-//   const newCard = document.createElement('div');
-//   const userImg = document.createElement('img');
-//   const nameOfUser = document.createElement('h3');
-//   const userName = document.createElement('p');
-//   const userLoc = document.createElement('p');
-//   const userProf = document.createElement('p');
-//   const userFollowers = document.createElement('p');
-//   const userFollowing = document.createElement('p');
-//   const userBio = document.createElement('p');
-
-//   newCard.appendChild(userBio);
-//   newCard.appendChild(userImg);
-//   newCard.appendChild(userName);
-//   newCard.appendChild(nameOfUser);
-//   newCard.appendChild(userLoc);
-//   newCard.appendChild(userProf);
-//   newCard.appendChild(userFollowers);
-//   newCard.appendChild(userFollowing);
-
-//   nameOfUser.textContent = `${data.nameOfUser}`;
-//   userName.textContent =  `${data.login}`;
-//   userLoc.textContent= `${data.location}`;
-//   userProf.textContent = `${data.html_url}`;
-//   userFollowers.textContent = `${data.userFollowers}`;
-//   userFollowing.textContent = `${data.userFollowing}`;
-//   userBio.textContent = `${data.userBio}`;
-//   userImg.src = `${data.avatar_url}`;
-
-//   newCard.classList.add('card');
-//   userImg.classList.add('img');
-//   nameOfUser.classList.add('h3');
-//   userName.classList.add('p');
-//   userLoc.classList.add('p');
-//   userProf.classList.add('p');
-//   userFollowers.classList.add('p');
-//   userFollowing.classList.add('p');
-//   userBio.classList.add('p');
-
-//   return card;
-// }
-
-// const cards = document.querySelector('.cards');
-
-// followersArray.forEach(data =>{
-//   cards.appendChild(cardList(data))
-// });
 
 
 
-function newCardMaker(data){
+const mainCard = document.querySelector('.cards');
+function newCardMaker(data) {
+    const newCard = document.createElement('div');
+    const 
+          img = document.createElement('img'),
+          cardInfo = document.createElement('div'),
+          h3Name = document.createElement('h3'),
+          userInfo = document.createElement('p'),
+          usersLocation = document.createElement('p'),
+          usersProfile = document.createElement('p'),
+          usersProfileUrl = document.createElement('a'),
+          usersFollowers = document.createElement('p'),
+          usersFollowing = document.createElement('p'),
+          usersBio = document.createElement('p');
 
+    newCard.classList.add('card');
+    cardInfo.classList.add('card-info');
+    h3Name.classList.add('name');
+    userInfo.classList.add('username');
 
-	// Elements
-    const newCard = document.createElement("div");
-    const cardInfo = document.createElement("div");
-    const h3Name = document.createElement("h3")
-    const newImg = document.createElement("img");
-    const usersName = document.createElement("p");
-    const usersLoc = document.createElement("p");
-    const usersProfile = document.createElement("p");
-    const usersProfileUrl = document.createElement("a");
-    const usersFollowers = document.createElement("p");
-    const usersFollowing = document.createElement("p");
-    const usersBio = document.createElement("p");
-  
-  
-      //text content-content
-      newImg.src = `${data.avatar_url}`;
-      h3Name.textContent = `${data.name}`;
-      usersName.textContent = `${data.login}`;
-      usersLoc.textContent = `${data.location}`;
-      usersProfileUrl.textContent = `${data.html_url}`;
-      usersFollowers.textContent = `${data.followers}`;
-      usersFollowing.textContent = `${data.following}`;
-      usersBio.textContent = `${data.bio}`;
-   
-      
-      //classes
-    newCard.classList.add("card");
-    cardInfo.classList.add("card-info");
-    h3Name.classList.add("name");
-    usersName.classList.add("username");
+    newCard.appendChild(img);
+    newCard.appendChild(cardInfo);
+    cardInfo.appendChild(h3Name);
+    cardInfo.appendChild(userInfo);
+    cardInfo.appendChild(usersLocation);
+    cardInfo.appendChild(usersProfile);
+    cardInfo.appendChild(usersFollowers);
+    cardInfo.appendChild(usersFollowing);
+    cardInfo.appendChild(usersBio);
 
-     //append
-    newCard.appendChild("newImg");
-    newCard.appendChild("cardInfo");
-    
-    cardInfo.appendChild("h3Name");
-    cardInfo.appendChild("usersName");
-    cardInfo.appendChild("usersLoc");
-    cardInfo.appendChild("usersProfile");
-    cardInfo.appendChild("usersProfileUrl");
-    cardInfo.appendChild("usersFollowers");
-    cardInfo.appendChild("usersFollowing");
+    img.src = `${data.avatar_url}`;
+    h3Name.textContent = `${data.name}`;
+    userInfo.textContent = `${data.login}`;
+    usersLocation.textContent = `${data.location}`;
+    usersProfileUrl.textContent = `${data.html_url}`;
+    usersFollowers.textContent = `${data.followers}`;
+    usersFollowing.textContent = `${data.following}`;
+    usersBio.textContent = `${data.bio}`;
 
-
-    return newCard;
-
+    console.log(newCard);
+    return newCard
 }
-
-
-
-axios.get('https://api.github.com/users/troyasaurus')
-    .then(response => {
-        console.log(response);
-        const myInfo = response.data;
-        newCardMaker(response.data);
-        const newCard = document.querySelector('.cards');
-        const cardInfo = newCardMaker(myInfo);
-        console.log(myInfo);
-        newCard.appendChild(cardInfo)
-    })
-    .catch(error => {
-        console.log(error);
-    });
-  
