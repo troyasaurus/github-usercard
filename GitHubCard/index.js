@@ -44,7 +44,6 @@ axios.get('https://api.github.com/users/troyasaurus')
         newCardMaker(response.data);
         const mainCard = document.querySelector('.cards');
         const cardInfo = newCardMaker(myInfo);
-        console.log(myInfo);
         mainCard.appendChild(cardInfo)
     })
     .catch(error => {
@@ -61,13 +60,11 @@ followersArray.forEach((user, i) => {
             const myInfo = response.data;
             const mainCard = document.querySelector('.cards');
             const cardInfo = newCardMaker(myInfo);
-            console.log(cardInfo);
             mainCard.appendChild(cardInfo)
         })
         .catch(error => {
             console.log(error)
         });
-    console.log(followersArray);
 });
 
 
@@ -111,7 +108,6 @@ function newCardMaker(data) {
     usersFollowers.textContent = `${data.followers}`;
     usersFollowing.textContent = `${data.following}`;
     usersBio.textContent = `${data.bio}`;
-
-    console.log(newCard);
+    
     return newCard
 }
